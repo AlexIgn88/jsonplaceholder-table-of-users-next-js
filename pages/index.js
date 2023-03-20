@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
-export default function FetchUser() {
+export default function FetchUsers() {
     const
         [users, setUsers] = useState(null),
         [error, setError] = useState(null);
-
     useEffect(() => {
         async function go() {
             try {
@@ -20,7 +19,6 @@ export default function FetchUser() {
         }
         go();
     }, []);
-
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (users) return <CreateTable users={users} />;
 }
@@ -28,15 +26,15 @@ export default function FetchUser() {
 function CreateTable({ users }) {
     return (
         <table>
-            <thead>
+            <thead onClick={clickListener}>
                 <tr>
-                    <th>ID</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>address.city</th>
-                    <th>phone</th>
-                    <th>website</th>
-                    <th>company.name</th>
+                    <th data-sort-type="number">ID</th>
+                    <th data-sort-type="string">name</th>
+                    <th data-sort-type="string">email</th>
+                    <th data-sort-type="string">address.city</th>
+                    <th data-sort-type="string">phone</th>
+                    <th data-sort-type="string">website</th>
+                    <th data-sort-type="string">company.name</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +49,6 @@ function CreateTr({ tr }) {
         address: { city: addressCity },
         phone, website, company: { name: companyName }
     } = tr;
-
     return (
         <>
             <tr>
@@ -65,4 +62,30 @@ function CreateTr({ tr }) {
             </tr>
         </>
     );
+}
+
+function clickListener(evt) {
+    const
+        theadCell = evt.target.closest('th'),
+        n = theadCell.cellIndex,
+        sortType = theadCell.dataset.sortType,
+        table = theadCell.closest("table"),
+        tbody = table.querySelector('tbody'),
+        rows = [...tbody.rows],
+        cmp = getCmpFunction(n, sortType);
+    rows.sort(cmp);
+    tbody.append(...rows);
+}
+
+function compare(compType, a, b) {
+    switch (compType) {
+        case "string": return a > b ? 1 : a == b ? 0 : -1;
+        case "number": return +a - +b;
+    }
+}
+
+function getCmpFunction(n, sortType) {
+    return function (a, b) {
+        return compare(sortType, a.cells[n].innerText, b.cells[n].innerText);
+    }
 }
