@@ -28,13 +28,13 @@ function CreateTable({ users, changeUsers }) {
         <table>
             <thead onClick={evt => sortOnclick(evt, users)}>
                 <tr>
-                    <th data-sort-type="number">id</th>
-                    <th data-sort-type="string">name</th>
-                    <th data-sort-type="string">email</th>
-                    <th data-sort-type="string">address.city</th>
-                    <th data-sort-type="string">phone</th>
-                    <th data-sort-type="string">website</th>
-                    <th data-sort-type="string">company.name</th>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>address.city</th>
+                    <th>phone</th>
+                    <th>website</th>
+                    <th>company.name</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,21 +43,21 @@ function CreateTable({ users, changeUsers }) {
         </table>
     );
 
-    function sortOnclick(evt, users) {
+    function sortOnclick(evt, array) {
         const
-            theadCell = evt.target.closest('th'),
-            theadCellText = theadCell.innerText,
-            sortType = theadCell.dataset.sortType;
-        let result;
+            theadCellText = evt.target.closest('th').innerText;
 
-        switch (sortType) {
-            case "string": result = [...users.sort((a, b) => a[theadCellText].localeCompare(b[theadCellText]))];
-                break;
-            case "number": result = [...users.sort((a, b) => +a[theadCellText] - +b[theadCellText])];
-                break;
-        }
-        return changeUsers(result);
+        return changeUsers([...array.sort(
+            typeof getByCompositeKey(array[0], theadCellText) === 'string'
+                ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
+                : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
+        )]);
     }
+
+    function getByCompositeKey(obj, key) {
+        return obj[key] ?? key.split('.').reduce((prev, cur) => prev[cur], obj)
+    }
+
 }
 
 function CreateTr({ tr }) {
