@@ -20,15 +20,15 @@ export default function FetchUsers() {
         go();
     }, []);
     if (error) return <div className="error">Oшибка {error.message}</div>;
-    if (users) return <CreateTable users={users} />;
+    if (users) return <CreateTable users={users} changeUsers={users => setUsers(users)} />;
 }
 
-function CreateTable({ users }) {
+function CreateTable({ users, changeUsers }) {
     return (
         <table>
-            <thead onClick={clickListener}>
+            <thead onClick={evt => sortOnclick(evt, users)}>
                 <tr>
-                    <th data-sort-type="number">ID</th>
+                    <th data-sort-type="number">id</th>
                     <th data-sort-type="string">name</th>
                     <th data-sort-type="string">email</th>
                     <th data-sort-type="string">address.city</th>
@@ -42,6 +42,22 @@ function CreateTable({ users }) {
             </tbody>
         </table>
     );
+
+    function sortOnclick(evt, users) {
+        const
+            theadCell = evt.target.closest('th'),
+            theadCellText = theadCell.innerText,
+            sortType = theadCell.dataset.sortType;
+        let result;
+
+        switch (sortType) {
+            case "string": result = [...users.sort((a, b) => a[theadCellText].localeCompare(b[theadCellText]))];
+                break;
+            case "number": result = [...users.sort((a, b) => +a[theadCellText] - +b[theadCellText])];
+                break;
+        }
+        return changeUsers(result);
+    }
 }
 
 function CreateTr({ tr }) {
@@ -62,30 +78,4 @@ function CreateTr({ tr }) {
             </tr>
         </>
     );
-}
-
-function clickListener(evt) {
-    const
-        theadCell = evt.target.closest('th'),
-        n = theadCell.cellIndex,
-        sortType = theadCell.dataset.sortType,
-        table = theadCell.closest("table"),
-        tbody = table.querySelector('tbody'),
-        rows = [...tbody.rows],
-        cmp = getCmpFunction(n, sortType);
-    rows.sort(cmp);
-    tbody.append(...rows);
-}
-
-function compare(compType, a, b) {
-    switch (compType) {
-        case "string": return a > b ? 1 : a == b ? 0 : -1;
-        case "number": return +a - +b;
-    }
-}
-
-function getCmpFunction(n, sortType) {
-    return function (a, b) {
-        return compare(sortType, a.cells[n].innerText, b.cells[n].innerText);
-    }
 }
