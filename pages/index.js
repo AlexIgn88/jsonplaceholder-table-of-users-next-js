@@ -26,7 +26,7 @@ export default function FetchUsers() {
 function CreateTable({ users, changeUsers }) {
     return (
         <table>
-            <thead onClick={evt => sortOnclick(evt, users)}>
+            <thead onClick={evt => sortOnClick(evt, users)}>
                 <tr>
                     <th>id</th>
                     <th>name</th>
@@ -43,7 +43,7 @@ function CreateTable({ users, changeUsers }) {
         </table>
     );
 
-    function sortOnclick(evt, array) {
+    function sortOnClick(evt, array) {
         const
             theadCellText = evt.target.closest('th').innerText;
 
