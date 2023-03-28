@@ -1,13 +1,59 @@
-body {
+.table-of-users,
+.inputs,
+.filter,
+.new-user-data,
+.modal-window,
+.control-panel,
+.user-detailed,
+.info-of-user,
+.photo-of-user,
+.posts {
     display: flex;
+}
+
+.table-of-users {
     justify-content: center;
+    flex-direction: column;
+    margin: 30px;
+    font-family: sans-serif;
+    font-size: larger;
+}
+
+.inputs button {
+    width: 100%;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.inputs,
+.filter,
+.new-user-data {
+    gap: 10px;
+}
+
+.inputs,
+.table-of-users table,
+.user-detailed,
+.posts {
+    margin-bottom: 20px;
+}
+
+.inputs {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.filter,
+.new-user-data {
+    flex-direction: column;
+    align-items: center;
+
 }
 
 table {
     border-collapse: collapse;
-    margin: 30px;
-    font-family: sans-serif;
-    font-size: larger;
 }
 
 th,
@@ -16,8 +62,31 @@ td {
     padding: 10px;
 }
 
-.modal-window {
-    display: flex;
+.user-detailed {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    border: solid black 1px;
+    padding: 10px;
+}
+
+.info-of-user {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-photo {
+    width: 200px;
+}
+
+.posts {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.posts>div {
+    border: solid black 1px;
+    padding: 10px;
 }
 
 div.modal-window-hide {
@@ -52,7 +121,6 @@ div.notification>div {
 }
 
 .control-panel {
-    display: flex;
     flex-direction: column;
 }
 

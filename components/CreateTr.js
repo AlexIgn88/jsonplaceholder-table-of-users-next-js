@@ -5,7 +5,7 @@ export default function CreateTr({ tr, changeUsers, changeCurrentUser }) {
     } = tr;
     return (
         <>
-            <tr>
+            <tr data-id={id}>
                 <td>{id}</td>
                 <td>{name}</td>
                 <td>{email}</td>
@@ -13,7 +13,9 @@ export default function CreateTr({ tr, changeUsers, changeCurrentUser }) {
                 <td>{phone}</td>
                 <td>{website}</td>
                 <td>{companyName}</td>
-                <td><button onClick={evt => openModalWindowForRename(tr)}>Edit</button><button onClick={evt => delUserbyID(tr.id)}>Delete</button></td>
+                <td><button onClick={evt => openModalWindowForRename(tr)}>Edit</button>
+                    <button onClick={evt => delUserbyID(tr.id)}>Delete</button>
+                </td>
             </tr>
         </>
     );

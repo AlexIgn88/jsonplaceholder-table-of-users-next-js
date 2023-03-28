@@ -16,7 +16,8 @@ export default function Filter({ users, changeUsers, inputValue, changeInputValu
     }
 
     return (
-        <div>Filter
+        <div className='filter'>
+            <div className="title">Filter</div>
             <input
                 type="text"
 

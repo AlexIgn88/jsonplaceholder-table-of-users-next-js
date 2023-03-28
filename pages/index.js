@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
+import fetchData from '../components/fetchData'
 import Filter from '../components/Filter'
 import AddNewUser from '../components/AddNewUser'
 import CreateTable from '../components/CreateTable'
 import ModalWindowForEditUser from '../components/ModalWindowForEditUser'
+import UserDetailedInformation from '../components/UserDetailedInformation'
 
-export default function FetchUsers() {
+export default function TableOfUsers() {
     const
+        api = "https://jsonplaceholder.typicode.com/users",
         [users, setUsers] = useState(null),
         [error, setError] = useState(null),
         [currentUser, setCurrentUser] = useState(''),
@@ -18,34 +21,27 @@ export default function FetchUsers() {
             phone: '',
             website: '',
             companyName: ''
-        });
+        }),
+
+        [userId, setUserId] = useState(null),
+        [showUserPosts, setShowUserPosts] = useState(null);
+    //console.log('FetchUsers. userId- ', userId);
+    console.log('FetchUsers. showUserPosts- ', showUserPosts);
 
     useEffect(() => {
-        async function go() {
-            try {
-                setError(null);
-                const response = await fetch(
-                    "https://jsonplaceholder.typicode.com/users"
-                );
-                if (!response.ok) throw new Error(response.status);
-                setUsers(await response.json());
-            } catch (err) {
-                setError(err);
-            }
-        }
-        go();
+        fetchData(api, setUsers, setError);
     }, []);
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (users) return (
-        <>
+        <div className='table-of-users'>
             <div className="inputs">
-                <Filter
+                <AddNewUser
                     users={users}
                     changeUsers={users => setUsers(users)}
                     inputValue={inputValue}
                     changeInputValue={inputValue => setInputValue(inputValue)}
                 />
-                <AddNewUser
+                <Filter
                     users={users}
                     changeUsers={users => setUsers(users)}
                     inputValue={inputValue}
@@ -57,7 +53,16 @@ export default function FetchUsers() {
                 changeUsers={users => setUsers(users)}
                 currentUser={currentUser}
                 changeCurrentUser={currentUser => setCurrentUser(currentUser)}
+                setUserId={userId => setUserId(userId)}
             />
+            {!userId
+                ? null
+                : <UserDetailedInformation
+                    userId={userId}
+                    showUserPosts={showUserPosts}
+                    setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
+                />
+            }
             <ModalWindowForEditUser
                 changeUsers={users => setUsers(users)}
                 currentUser={currentUser}
@@ -65,6 +70,6 @@ export default function FetchUsers() {
                 inputValue={inputValue}
                 changeInputValue={inputValue => setInputValue(inputValue)}
             />
-        </>
+        </div>
     );
 }

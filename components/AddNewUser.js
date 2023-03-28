@@ -12,7 +12,8 @@ export default function AddNewUser({ users, changeUsers, inputValue, changeInput
     }
 
     return (
-        <div>
+        <div className="new-user-data">
+            <div className="title">Add new user</div>
             <input
                 type="text"
                 placeholder="Enter name"
