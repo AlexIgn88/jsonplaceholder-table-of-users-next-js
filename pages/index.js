@@ -25,8 +25,8 @@ export default function TableOfUsers() {
 
         [userId, setUserId] = useState(null),
         [showUserPosts, setShowUserPosts] = useState(null);
-    //console.log('FetchUsers. userId- ', userId);
-    console.log('FetchUsers. showUserPosts- ', showUserPosts);
+    //console.log('TableOfUsers. userId- ', userId);
+    console.log('TableOfUsers. showUserPosts- ', showUserPosts);
 
     useEffect(() => {
         fetchData(api, setUsers, setError);
@@ -54,6 +54,7 @@ export default function TableOfUsers() {
                 currentUser={currentUser}
                 changeCurrentUser={currentUser => setCurrentUser(currentUser)}
                 setUserId={userId => setUserId(userId)}
+                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
             />
             {!userId
                 ? null

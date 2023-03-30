@@ -13,7 +13,6 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
     console.log('UserDetailedInformation. showUserPosts- ', showUserPosts);
 
     useEffect(() => {
-        setShowUserPosts(null);
         fetchData(api, setUserDetailed, setError);
     }, [userId]);
 
@@ -40,11 +39,11 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
                     <div>
                         <span>Company name: </span>
                         <span>{userDetailed.company.name}</span></div>
-                    <div><button onClick={evt => { setShowUserPosts(1) }}>Show posts</button></div>
+                    <div><button onClick={evt => setShowUserPosts(1)}>Show posts</button></div>
                 </div>
                 <div className='photo-of-user'>{
                     [<img className='user-photo' key={userId} src={"https://fakeface.rest/face/view/" + userId} />
-                    ]} 
+                    ]}
                 </div>
             </div>
             {!showUserPosts

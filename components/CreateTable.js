@@ -1,7 +1,7 @@
 import CreateTr from '../components/CreateTr'
 import getByCompositeKey from '../components/getByCompositeKey'
 
-export default function CreateTable({ users, changeUsers, currentUser, changeCurrentUser, setUserId }) {
+export default function CreateTable({ users, changeUsers, currentUser, changeCurrentUser, setUserId, setShowUserPosts }) {
     return (
         <table>
             <thead onClick={evt => sortOnClick(evt, users)}>
@@ -20,6 +20,7 @@ export default function CreateTable({ users, changeUsers, currentUser, changeCur
                 const userId = evt.target.closest('tr')?.dataset.id;
                 if (!userId) return;
                 setUserId(userId);
+                setShowUserPosts(null);
             }
             }>
                 {users.map(user => <CreateTr
