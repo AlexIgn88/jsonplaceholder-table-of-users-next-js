@@ -20,7 +20,7 @@ export default function CreateTable({ users, changeUsers, currentUser, changeCur
                 const userId = evt.target.closest('tr')?.dataset.id;
                 if (!userId) return;
                 setUserId(userId);
-                setShowUserPosts(null);
+                setShowUserPosts(false);
             }
             }>
                 {users.map(user => <CreateTr

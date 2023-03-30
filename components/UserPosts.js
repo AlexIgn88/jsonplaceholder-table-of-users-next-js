@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import fetchData from '../components/fetchData'
 
 export default function UserPosts({ userId }) {
-    console.log('Запуск UserPosts', userId);
+    console.log('UserPosts. userId- ', userId);
 
     const
         [userPosts, setUserPosts] = useState(null),
@@ -16,7 +16,7 @@ export default function UserPosts({ userId }) {
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (userPosts)
-        return (
+        return ( 
             <div className="posts">
                 {userPosts.map(post =>
                     <div key={post.id}>
@@ -27,5 +27,6 @@ export default function UserPosts({ userId }) {
                 )}
             </div>
         );
-
+        
+        console.log('RENDER UserPosts');
 }

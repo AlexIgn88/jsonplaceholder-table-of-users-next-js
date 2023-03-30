@@ -24,9 +24,8 @@ export default function TableOfUsers() {
         }),
 
         [userId, setUserId] = useState(null),
-        [showUserPosts, setShowUserPosts] = useState(null);
-    //console.log('TableOfUsers. userId- ', userId);
-    console.log('TableOfUsers. showUserPosts- ', showUserPosts);
+        [showUserPosts, setShowUserPosts] = useState(false);
+    console.log('TableOfUsers. userId- ', userId, 'showUserPosts- ', showUserPosts);
 
     useEffect(() => {
         fetchData(api, setUsers, setError);
@@ -73,4 +72,5 @@ export default function TableOfUsers() {
             />
         </div>
     );
+    console.log('RENDER TableOfUsers');
 }

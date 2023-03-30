@@ -1,7 +1,9 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import UserPosts from '../components/UserPosts'
 import fetchData from '../components/fetchData'
+
+const MemoizedUserPosts = memo(UserPosts);
 
 export default function UserDetailedInformation({ userId, showUserPosts, setShowUserPosts }) {
     const
@@ -9,8 +11,7 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
         [error, setError] = useState(null),
         api = "https://jsonplaceholder.typicode.com/users/" + userId;
 
-    //console.log('render UserDetailedInformation. userId- ', userId);
-    console.log('UserDetailedInformation. showUserPosts- ', showUserPosts);
+    console.log('UserDetailedInformation. userId- ', userId, 'showUserPosts- ', showUserPosts);
 
     useEffect(() => {
         fetchData(api, setUserDetailed, setError);
@@ -39,17 +40,15 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
                     <div>
                         <span>Company name: </span>
                         <span>{userDetailed.company.name}</span></div>
-                    <div><button onClick={evt => setShowUserPosts(1)}>Show posts</button></div>
+                    <div><button onClick={evt => setShowUserPosts(true)}>Show posts</button></div>
                 </div>
                 <div className='photo-of-user'>{
                     [<img className='user-photo' key={userId} src={"https://fakeface.rest/face/view/" + userId} />
                     ]}
                 </div>
             </div>
-            {!showUserPosts
-                ? null
-                : <UserPosts userId={userId} />
-            }
+            {!showUserPosts ? null : <MemoizedUserPosts userId={userId} />}
         </>
     );
+    console.log('RENDER UserDetailedInformation');
 }
