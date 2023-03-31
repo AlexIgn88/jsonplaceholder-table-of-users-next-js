@@ -24,7 +24,14 @@ export default function Filter({ users, setfilteredUsers }) {
                 value={filterValue}
                 onInput={(evt) => changeFilterValue(evt.target.value)}
             />
-            <button onClick={evt => setfilteredUsers((filterArrayByKey(users, filterValue)))}>Filter</button>
+            <button onClick={evt => {
+                setfilteredUsers((filterArrayByKey(users, filterValue)))
+            }
+            }>Filter</button>
+            <button onClick={evt => {
+                setfilteredUsers('')
+            }
+            }>Reset</button>
         </div>
     );
 }

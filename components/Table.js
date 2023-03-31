@@ -3,7 +3,7 @@ import CreateTr from '../components/CreateTr'
 import CreateEditableTr from '../components/CreateEditableTr';
 import getByCompositeKey from '../includes/getByCompositeKey'
 
-export default function Table({ users, changeUsers, currentUser, changeCurrentUser, setUserId, setShowUserPosts }) {
+export default function Table({ users, changeUsers, setUserId, setShowUserPosts }) {
     const [editContactId, setEditContactId] = useState(null);
 
     function handleEditUser(evt, user) {
@@ -22,8 +22,6 @@ export default function Table({ users, changeUsers, currentUser, changeCurrentUs
     function handleCancelClick() {
         setEditContactId(null);
     };
-
-    console.log('editContactId- ', editContactId);
 
     return (
         <table className='sort'>

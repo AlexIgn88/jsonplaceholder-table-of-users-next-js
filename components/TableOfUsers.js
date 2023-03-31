@@ -10,16 +10,14 @@ export default function TableOfUsers() {
         api = "https://jsonplaceholder.typicode.com/users",
         [users, setUsers] = useState(null),
         [error, setError] = useState(null),
-        [currentUser, setCurrentUser] = useState(''),
-
-        [filteredUsers, setfilteredUsers] = useState(null),
         [userId, setUserId] = useState(null),
-        [showUserPosts, setShowUserPosts] = useState(false);
-    console.log('TableOfUsers. userId- ', userId, 'showUserPosts- ', showUserPosts);
+        [showUserPosts, setShowUserPosts] = useState(false),
 
-    console.log('RENDER TableOfUsers');
+        [filterValue, changeFilterValue] = useState('');
 
-    console.log(users);
+    let viewData = users;
+
+    if (filterValue) viewData = filterValue;
 
     useEffect(() => {
         fetchData(api, setUsers, setError);
@@ -42,14 +40,12 @@ export default function TableOfUsers() {
                 </table>
                 <Filter
                     users={users}
-                    setfilteredUsers={setUsers}
+                    setfilteredUsers={changeFilterValue}
                 />
             </div>
             <Table
-                users={users}
-                changeUsers={users => setUsers(users)}
-                currentUser={currentUser}
-                changeCurrentUser={currentUser => setCurrentUser(currentUser)}
+                users={viewData}
+                changeUsers={filterValue ? changeFilterValue : setUsers}
                 setUserId={userId => setUserId(userId)}
                 setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
             />
