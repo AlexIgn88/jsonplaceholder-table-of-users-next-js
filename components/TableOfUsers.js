@@ -12,6 +12,7 @@ export default function TableOfUsers() {
         [error, setError] = useState(null),
         [currentUser, setCurrentUser] = useState(''),
 
+        [filteredUsers, setfilteredUsers] = useState(null),
         [userId, setUserId] = useState(null),
         [showUserPosts, setShowUserPosts] = useState(false);
     console.log('TableOfUsers. userId- ', userId, 'showUserPosts- ', showUserPosts);
@@ -39,9 +40,10 @@ export default function TableOfUsers() {
                         />
                     </tbody>
                 </table>
-
-
-
+                <Filter
+                    users={users}
+                    setfilteredUsers={setUsers}
+                />
             </div>
             <Table
                 users={users}

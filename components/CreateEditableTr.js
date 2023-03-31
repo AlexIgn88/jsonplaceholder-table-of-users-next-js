@@ -22,6 +22,7 @@ export default function CreateEditableTr({ users, tr, handleEditFormSubmit, hand
     }
 
     return <tr>
+        <td>№ {id}</td>
         <td><input type='text' placeholder='Enter a name' name='name' value={name} onChange={evt => setName(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an email' name='email' value={email} onChange={evt => setEmail(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an address' name='addressCity' value={addressCity} onChange={evt => setAddressCity(evt.target.value)}></input></td>
