@@ -25,11 +25,12 @@ export default function Filter({ users, setfilteredUsers }) {
                 onInput={(evt) => changeFilterValue(evt.target.value)}
             />
             <button onClick={evt => {
-                setfilteredUsers((filterArrayByKey(users, filterValue)))
+                setfilteredUsers((filterArrayByKey(users, filterValue.trim())))
             }
             }>Filter</button>
             <button onClick={evt => {
-                setfilteredUsers('')
+                changeFilterValue('');
+                setfilteredUsers('');
             }
             }>Reset</button>
         </div>
