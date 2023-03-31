@@ -18,6 +18,8 @@ export default function TableOfUsers() {
 
     console.log('RENDER TableOfUsers');
 
+    console.log(users);
+
     useEffect(() => {
         fetchData(api, setUsers, setError);
     }, []);
@@ -26,12 +28,17 @@ export default function TableOfUsers() {
     if (users) return (
         <div className='table-of-users'>
             <div className="inputs">
-
-                <CreateEditableTr
-                    tr={{ name: '', email: '', address: { city: '' }, phone: '', website: '', company: { name: '' } }}
-                    handleCancelClick={null}
-                    handleEditFormSubmit={user => setUsers([...users, user])}
-                />
+                <table>
+                    <tbody>
+                        <CreateEditableTr
+                            key={Date.now()}
+                            users={users}
+                            tr={{ name: '', email: '', address: { city: '' }, phone: '', website: '', company: { name: '' } }}
+                            handleCancelClick={null}
+                            handleEditFormSubmit={user => setUsers([...users, user])}
+                        />
+                    </tbody>
+                </table>
 
 
 

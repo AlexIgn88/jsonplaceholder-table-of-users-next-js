@@ -26,7 +26,7 @@ export default function Table({ users, changeUsers, currentUser, changeCurrentUs
     console.log('editContactId- ', editContactId);
 
     return (
-        <table>
+        <table className='sort'>
             <thead onClick={evt => sortOnClick(evt, users)}>
                 <tr>
                     <th>id</th>
@@ -50,6 +50,7 @@ export default function Table({ users, changeUsers, currentUser, changeCurrentUs
                     return editContactId === user.id
                         ? <CreateEditableTr
                             key={user.id}
+                            users={users}
                             tr={user}
                             handleEditFormSubmit={handleEditFormSubmit}
                             handleCancelClick={handleCancelClick}

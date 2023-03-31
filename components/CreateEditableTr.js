@@ -1,14 +1,25 @@
 import { useState } from 'react';
 
-export default function CreateEditableTr({ tr, handleEditFormSubmit, handleCancelClick }) {
+export default function CreateEditableTr({ users, tr, handleEditFormSubmit, handleCancelClick }) {
 
     const
+        [id, setId] = useState(tr.id || generateIdForNewUser(users)),
         [name, setName] = useState(tr.name),
         [email, setEmail] = useState(tr.email),
         [addressCity, setAddressCity] = useState(tr.address.city),
         [website, setWebsite] = useState(tr.website),
         [phone, setPhone] = useState(tr.phone),
         [companyName, setCompanyName] = useState(tr.company.name);
+
+    function generateIdForNewUser(arr) {
+        let maxId = 0;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].id > maxId) {
+                maxId = arr[i].id;
+            }
+        }
+        return maxId + 1;
+    }
 
     return <tr>
         <td><input type='text' placeholder='Enter a name' name='name' value={name} onChange={evt => setName(evt.target.value)}></input></td>
@@ -19,7 +30,7 @@ export default function CreateEditableTr({ tr, handleEditFormSubmit, handleCance
         <td><input type='text' placeholder='Enter an company-name' name='company.name' value={companyName} onChange={evt => setCompanyName(evt.target.value)} ></input></td>
 
         <td>
-            <button type='submit' onClick={_ => handleEditFormSubmit({ name, email, address: { city: addressCity }, website, phone, company: { name: companyName } })}>Save</button>
+            <button type='submit' onClick={_ => handleEditFormSubmit({ id, name, email, address: { city: addressCity }, website, phone, company: { name: companyName } })}>Save</button>
             <button type='button' onClick={handleCancelClick}>Cancel</button>
         </td>
     </tr>
