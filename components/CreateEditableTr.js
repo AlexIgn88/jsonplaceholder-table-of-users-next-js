@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function EditableRow({ tr, handleEditFormSubmit, handleCancelClick }) {
+export default function CreateEditableTr({ tr, handleEditFormSubmit, handleCancelClick }) {
 
     const
         [name, setName] = useState(tr.name),
