@@ -64,7 +64,7 @@ table.sort {
     background-color: #F0F0F0;
 }
 
-.sort table tbody tr:hover {
+table.sort tbody tr:hover {
     background-color: orange;
 }
 
