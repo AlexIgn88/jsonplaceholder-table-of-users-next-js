@@ -7,7 +7,7 @@ export default function CreateTr({ tr, changeUsers, changeCurrentUser }) {
         <>
             <tr data-id={id}>
                 <td>{id}</td>
-                <td>{name}</td>
+                <td>{name} <input /></td>
                 <td>{email}</td>
                 <td>{addressCity}</td>
                 <td>{phone}</td>

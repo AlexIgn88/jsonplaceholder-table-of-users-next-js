@@ -21,8 +21,8 @@ export default function CreateTable({ users, changeUsers, currentUser, changeCur
                 if (!userId) return;
                 setUserId(userId);
                 setShowUserPosts(false);
-            }
-            }>
+            }}
+            >
                 {users.map(user => <CreateTr
                     key={user.id}
                     tr={user}

@@ -1,7 +1,7 @@
 .table-of-users,
+.new-user-data,
 .inputs,
 .filter,
-.new-user-data,
 .modal-window,
 .control-panel,
 .user-detailed,
@@ -19,18 +19,18 @@
     font-size: larger;
 }
 
-.inputs button {
-    width: 100%;
-}
-
 .title {
     font-weight: bold;
 }
 
-.inputs,
+.inputs {
+    flex-wrap: wrap;
+}
+
 .filter,
 .new-user-data {
     gap: 10px;
+    margin: 10px;
 }
 
 .inputs,
@@ -38,11 +38,6 @@
 .user-detailed,
 .posts {
     margin-bottom: 20px;
-}
-
-.inputs {
-    flex-direction: row;
-    align-items: flex-start;
 }
 
 .filter,
@@ -54,6 +49,18 @@
 
 table {
     border-collapse: collapse;
+}
+
+thead tr {
+    background-color: yellow;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+table tbody tr:hover {
+    background-color: orange;
 }
 
 th,

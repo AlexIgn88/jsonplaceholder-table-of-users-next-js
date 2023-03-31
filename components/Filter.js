@@ -17,17 +17,18 @@ export default function Filter({ users, changeUsers, inputValue, changeInputValu
 
     return (
         <div className='filter'>
-            <div className="title">Filter</div>
-            <input
-                type="text"
+            <form>
+                <input
+                    type="text"
 
-                onInput={(evt) => changeInputValue((old) => {
-                    old.filter = evt.target.value
-                    return old;
-                })
-                }
-            />
-            <button onClick={evt => changeUsers(filterArrayByKey(users, inputValue.filter))}>Filter</button>
+                    onInput={(evt) => changeInputValue((old) => {
+                        old.filter = evt.target.value
+                        return old;
+                    })
+                    }
+                />
+                <button onClick={evt => changeUsers(filterArrayByKey(users, inputValue.filter))}>Filter</button>
+            </form>
         </div>
 
 
