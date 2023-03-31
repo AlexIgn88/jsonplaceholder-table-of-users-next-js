@@ -28,5 +28,5 @@ export default function UserPosts({ userId }) {
             </div>
         );
         
-        console.log('RENDER UserPosts');
+        console.log('RENDER UserPosts'); // после 2х условных return-ов  - выносим на верх
 }
