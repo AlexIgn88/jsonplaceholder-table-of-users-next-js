@@ -8,5 +8,3 @@ export default async function fetchData(api, setResult, setError) {
         setError(err);
     }
 }
-// прекрасно что вынесли в отдельный модуль
-// но  это не компонент, поэтому ему не место в папке с другими компонентами 

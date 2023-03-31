@@ -1,7 +1,7 @@
 
 import { useState, useEffect, memo } from 'react'
 import UserPosts from '../components/UserPosts'
-import fetchData from '../components/fetchData'
+import fetchData from '../includes/fetchData'
 
 const MemoizedUserPosts = memo(UserPosts);
 
@@ -16,6 +16,8 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
     useEffect(() => {
         fetchData(api, setUserDetailed, setError);
     }, [userId]);
+
+    console.log('RENDER UserDetailedInformation'); 
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (userDetailed) return (
@@ -50,5 +52,4 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
             {!showUserPosts ? null : <MemoizedUserPosts userId={userId} />}
         </>
     );
-    console.log('RENDER UserDetailedInformation'); // после 2х условных return-ов  - выносим на верх
 }

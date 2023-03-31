@@ -1,26 +1,11 @@
-export default function CreateTr({ tr, changeUsers, changeCurrentUser }) {
+export default function CreateTr({ tr, changeUsers, handleEditUser }) {
+
     const { id, name, email,
         address: { city: addressCity },
         phone, website, company: { name: companyName }
     } = tr;
-    return (
-        <>
-            <tr data-id={id}>
-                <td>{id}</td>
-                <td>{name} <input /></td>
-                <td>{email}</td>
-                <td>{addressCity}</td>
-                <td>{phone}</td>
-                <td>{website}</td>
-                <td>{companyName}</td>
-                <td><button onClick={evt => openModalWindowForRename(tr)}>Edit</button>
-                    <button onClick={evt => delUserbyID(tr.id)}>Delete</button>
-                </td>
-            </tr>
-        </>
-    );
 
-    function delUserbyID(id) {
+    function handleDelUserbyId(id) {
         changeUsers((old) => {
             const index = old.findIndex((item) => id === item.id);
             old.splice(index, 1);
@@ -28,10 +13,17 @@ export default function CreateTr({ tr, changeUsers, changeCurrentUser }) {
         });
     }
 
-    function openModalWindowForRename(tr) {
-        const modalWindow = document.querySelector('.modal-window');
+    return <tr data-id={id}>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td>{email}</td>
+        <td>{addressCity}</td>
+        <td>{phone}</td>
+        <td>{website}</td>
+        <td>{companyName}</td>
 
-        changeCurrentUser(tr);
-        if (getComputedStyle(modalWindow).display === 'none') modalWindow.classList.toggle('modal-window-hide');
-    }
+        <td><button onClick={evt => handleEditUser(evt, tr)}>Edit</button>
+            <button onClick={() => handleDelUserbyId(tr.id)}>Delete</button>
+        </td>
+    </tr>
 }

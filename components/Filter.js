@@ -1,4 +1,4 @@
-import getByCompositeKey from '../components/getByCompositeKey'
+import getByCompositeKey from '../includes/getByCompositeKey'
 
 export default function Filter({ users, changeUsers, inputValue, changeInputValue }) {
 
