@@ -11,6 +11,11 @@
     display: flex;
 }
 
+.table-name {
+    text-align: center;
+    font-family: sans-serif;
+}
+
 .table-of-users {
     justify-content: center;
     flex-direction: column;
