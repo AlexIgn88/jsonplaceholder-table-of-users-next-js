@@ -50,5 +50,5 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
             {!showUserPosts ? null : <MemoizedUserPosts userId={userId} />}
         </>
     );
-    console.log('RENDER UserDetailedInformation');
+    console.log('RENDER UserDetailedInformation'); // после 2х условных return-ов  - выносим на верх
 }

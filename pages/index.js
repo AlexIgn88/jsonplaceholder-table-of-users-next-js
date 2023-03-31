@@ -6,7 +6,7 @@ import CreateTable from '../components/CreateTable'
 import ModalWindowForEditUser from '../components/ModalWindowForEditUser'
 import UserDetailedInformation from '../components/UserDetailedInformation'
 
-export default function TableOfUsers() {
+export default function TableOfUsers() { // лучше не писать так много кода в /pages/ а завернуть это в отдельный компонент
     const
         api = "https://jsonplaceholder.typicode.com/users",
         [users, setUsers] = useState(null),
@@ -72,5 +72,7 @@ export default function TableOfUsers() {
             />
         </div>
     );
-    console.log('RENDER TableOfUsers');
+    console.log('RENDER TableOfUsers'); // это после 2х условных return-ов?
+    // будет выполнено только пока error и user оба false
+    // т.е только при первом рендере когда обычно отображаем спиннер 
 }
