@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import fetchData from '../includes/fetchData'
 import CreateEditableTr from '../components/CreateEditableTr';
-import Filter from '../components/Filter'
 import Table from '../components/Table'
 import UserDetailedInformation from '../components/UserDetailedInformation'
+
+import getByCompositeKey from '../includes/getByCompositeKey'
 
 export default function TableOfUsers() {
     const
@@ -12,14 +13,27 @@ export default function TableOfUsers() {
         [error, setError] = useState(null),
         [userId, setUserId] = useState(null),
         [showUserPosts, setShowUserPosts] = useState(false),
-
-        [filteredUsers, setfilteredUsers] = useState(null);
+        [filterValue, setFilter] = useState('');
     let viewData = users;
-    if (filteredUsers) viewData = filteredUsers;
+
+    let arreyOfKeys = ['id', 'name', 'email', 'address.city', 'phone', 'website', 'company.name'];
 
     useEffect(() => {
         fetchData(api, setUsers, setError);
     }, []);
+
+    // if (filterValue) {
+    //     // viewData = viewData.filter(obj=>JSON.stringify(obj).includes(filterValue));
+    //     viewData = viewData.filter(obj => columns
+    //         .map(col => col.getVal(obj).toString().toLowerCase())
+    //         .some(str => str.includes(filterValue.toLowerCase())));
+    // }
+
+    if (filterValue) {
+        viewData = viewData.filter(obj => arreyOfKeys
+            .map(key => getByCompositeKey(obj, key).toString().toLowerCase())
+            .some(str => str.includes(filterValue.trim().toLowerCase())));
+    }
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (users) return (
@@ -36,14 +50,14 @@ export default function TableOfUsers() {
                         />
                     </tbody>
                 </table>
-                <Filter
-                    users={users}
-                    setfilteredUsers={setfilteredUsers}
-                />
+            </div>
+            <div className='filter'>
+                <span>filter:</span><input type="search" value={filterValue} onInput={evt => setFilter(evt.target.value)}></input>
             </div>
             <Table
-                users={viewData}
-                changeUsers={filteredUsers ? setfilteredUsers : setUsers}
+                users={users}
+                viewData={viewData}
+                changeUsers={setUsers}
                 setUserId={userId => setUserId(userId)}
                 setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
             />

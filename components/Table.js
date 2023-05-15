@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import CreateTr from '../components/CreateTr'
 import CreateEditableTr from '../components/CreateEditableTr';
+
 import getByCompositeKey from '../includes/getByCompositeKey'
 
-export default function Table({ users, changeUsers, setUserId, setShowUserPosts }) {
+export default function Table({ users, viewData, changeUsers, setUserId, setShowUserPosts }) {
     const [editContactId, setEditContactId] = useState(null);
 
     function handleEditUser(evt, user) {
@@ -38,7 +39,7 @@ export default function Table({ users, changeUsers, setUserId, setShowUserPosts 
 
     return (
         <table className='sort'>
-            <thead onClick={evt => sortOnClick(evt, users)}>
+            <thead onClick={evt => sortOnClick(evt, viewData)}>
                 <tr>
                     <th>id</th>
                     <th>name</th>
@@ -57,11 +58,11 @@ export default function Table({ users, changeUsers, setUserId, setShowUserPosts 
                 setShowUserPosts(false);
             }}
             >
-                {users.map(user => {
+                {viewData.map(user => {
                     return editContactId === user.id
                         ? <CreateEditableTr
                             key={user.id}
-                            users={users}
+                            users={viewData}
                             tr={user}
                             handleEditFormSubmit={handleEditFormSubmit}
                             handleCancelClick={handleCancelClick}
