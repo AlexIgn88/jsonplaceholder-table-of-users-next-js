@@ -14,9 +14,7 @@ export default function CreateEditableTr({ users, tr, handleEditFormSubmit, hand
     function generateIdForNewUser(arr) {
         let maxId = 0;
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i].id > maxId) {
-                maxId = arr[i].id;
-            }
+            if (arr[i].id > maxId) maxId = arr[i].id;
         }
         return maxId + 1;
     }
