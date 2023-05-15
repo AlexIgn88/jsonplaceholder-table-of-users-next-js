@@ -17,22 +17,22 @@ export default function Filter({ users, setfilteredUsers }) {
         return filteredArray;
     }
 
-    return (
-        <div className='filter'>
-            <input
-                type="search"
-                value={filterValue}
-                onInput={(evt) => changeFilterValue(evt.target.value)}
-            />
-            <button onClick={evt => {
-                setfilteredUsers((filterArrayByKey(users, filterValue.trim())))
-            }
-            }>Filter</button>
-            <button onClick={evt => {
-                changeFilterValue('');
-                setfilteredUsers('');
-            }
-            }>Reset</button>
-        </div>
-    );
+    return <div className='filter'>
+        <input
+            type="search"
+            value={filterValue}
+            onInput={(evt) => changeFilterValue(evt.target.value)}
+        />
+        <button onClick={() => {
+            setfilteredUsers(filterArrayByKey(users, filterValue.trim()))
+        }
+        }>Filter
+        </button>
+        <button onClick={() => {
+            changeFilterValue('');
+            setfilteredUsers(null);
+        }
+        }>Reset
+        </button>
+    </div>
 }

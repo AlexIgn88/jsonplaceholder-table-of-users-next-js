@@ -13,11 +13,9 @@ export default function TableOfUsers() {
         [userId, setUserId] = useState(null),
         [showUserPosts, setShowUserPosts] = useState(false),
 
-        [filterValue, changeFilterValue] = useState('');
-
+        [filteredUsers, setfilteredUsers] = useState(null);
     let viewData = users;
-
-    if (filterValue) viewData = filterValue;
+    if (filteredUsers) viewData = filteredUsers;
 
     useEffect(() => {
         fetchData(api, setUsers, setError);
@@ -40,23 +38,20 @@ export default function TableOfUsers() {
                 </table>
                 <Filter
                     users={users}
-                    setfilteredUsers={changeFilterValue}
+                    setfilteredUsers={setfilteredUsers}
                 />
             </div>
             <Table
                 users={viewData}
-                changeUsers={filterValue ? changeFilterValue : setUsers}
+                changeUsers={filteredUsers ? setfilteredUsers : setUsers}
                 setUserId={userId => setUserId(userId)}
                 setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
             />
-            {!userId
-                ? null
-                : <UserDetailedInformation
-                    userId={userId}
-                    showUserPosts={showUserPosts}
-                    setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
-                />
-            }
+            {userId && <UserDetailedInformation
+                userId={userId}
+                showUserPosts={showUserPosts}
+                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
+            />}
         </div>
     );
 }

@@ -16,7 +16,7 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
         fetchData(api, setUserDetailed, setError);
     }, [userId]);
 
-    console.log('RENDER UserDetailedInformation'); 
+    console.log('RENDER UserDetailedInformation');
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (userDetailed) return (
@@ -41,14 +41,14 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
                     <div>
                         <span>Company name: </span>
                         <span>{userDetailed.company.name}</span></div>
-                    <div><button onClick={evt => setShowUserPosts(true)}>Show posts</button></div>
+                    <div><button onClick={() => setShowUserPosts(true)}>Show posts</button></div>
                 </div>
                 <div className='photo-of-user'>{
                     [<img className='user-photo' key={userId} src={"https://fakeface.rest/face/view/" + userId} />
                     ]}
                 </div>
             </div>
-            {!showUserPosts ? null : <MemoizedUserPosts userId={userId} />}
+            {showUserPosts && <MemoizedUserPosts userId={userId} />}
         </>
     );
 }

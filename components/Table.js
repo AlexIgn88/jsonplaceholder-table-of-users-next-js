@@ -23,6 +23,19 @@ export default function Table({ users, changeUsers, setUserId, setShowUserPosts 
         setEditContactId(null);
     };
 
+    function sortOnClick(evt, array) {
+        const
+            theadCellText = evt.target.closest('th')?.innerText;
+
+        if (!theadCellText) return;
+
+        return changeUsers([...array.sort(
+            typeof getByCompositeKey(array[0], theadCellText) === 'string'
+                ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
+                : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
+        )]);
+    }
+
     return (
         <table className='sort'>
             <thead onClick={evt => sortOnClick(evt, users)}>
@@ -63,17 +76,4 @@ export default function Table({ users, changeUsers, setUserId, setShowUserPosts 
             </tbody>
         </table>
     );
-
-    function sortOnClick(evt, array) {
-        const
-            theadCellText = evt.target.closest('th')?.innerText;
-
-        if (!theadCellText) return;
-
-        return changeUsers([...array.sort(
-            typeof getByCompositeKey(array[0], theadCellText) === 'string'
-                ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
-                : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
-        )]);
-    }
 }
