@@ -33,8 +33,8 @@ export default function TableOfUsers() {
                             key={Date.now()}
                             users={users}
                             tr={{ name: '', email: '', address: { city: '' }, phone: '', website: '', company: { name: '' } }}
-                            handleCancelClick={null}
                             handleEditFormSubmit={user => setUsers([...users, user])}
+                            handleCancelClick={null}
                         />
                     </tbody>
                 </table>

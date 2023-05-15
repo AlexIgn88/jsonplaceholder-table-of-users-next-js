@@ -30,7 +30,7 @@ export default function CreateEditableTr({ users, tr, handleEditFormSubmit, hand
 
         <td>
             <button type='submit' onClick={_ => handleEditFormSubmit({ id, name, email, address: { city: addressCity }, website, phone, company: { name: companyName } })}>Save</button>
-            <button type='button' onClick={handleCancelClick}>Cancel</button>
+            {handleCancelClick && <button type='button' onClick={handleCancelClick}>Cancel</button>}
         </td>
     </tr>
 }
