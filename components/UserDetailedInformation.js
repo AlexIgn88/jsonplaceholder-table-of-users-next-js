@@ -1,6 +1,6 @@
-import { useState, useEffect, memo } from 'react'
-import UserPosts from '../components/UserPosts'
-import fetchData from '../includes/fetchData'
+import { useState, useEffect, memo } from 'react';
+import UserPosts from '../components/UserPosts';
+import fetchData from '../includes/fetchData';
 
 const MemoizedUserPosts = memo(UserPosts);
 

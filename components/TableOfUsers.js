@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import fetchData from '../includes/fetchData'
+import { useState, useEffect } from 'react';
+import fetchData from '../includes/fetchData';
 import CreateEditableTr from '../components/CreateEditableTr';
-import Table from '../components/Table'
-import UserDetailedInformation from '../components/UserDetailedInformation'
-
-// import getByCompositeKey from '../includes/getByCompositeKey'
+import Table from '../components/Table';
+import UserDetailedInformation from '../components/UserDetailedInformation';
+import { Email, Phone, Site } from '../components/cell-wrappers';
 
 export default function TableOfUsers() {
     const
@@ -18,34 +17,23 @@ export default function TableOfUsers() {
         columns = [
             { name: 'Id', getVal: obj => obj.id },
             { name: 'Name', getVal: obj => obj.name },
-            { name: 'Email', getVal: obj => obj.email },
+            { name: 'Email', getVal: obj => obj.email, wrap: Email },
             { name: 'Address city', getVal: obj => obj.address?.city },
-            { name: 'Phone', getVal: obj => obj.phone },
-            { name: 'Website', getVal: obj => obj.website },
+            { name: 'Phone', getVal: obj => obj.phone, wrap: Phone },
+            { name: 'Website', getVal: obj => obj.website, wrap: Site },
             { name: 'Company name', getVal: obj => obj.company?.name },
             { name: 'Action', getVal: _ => '' }
         ];
     let viewData = users;
 
-    // let arreyOfKeys = ['id', 'name', 'email', 'address.city', 'phone', 'website', 'company.name'];
-
     useEffect(() => {
         fetchData(api, setUsers, setError);
     }, []);
-
-    // if (sortCol) {
-    //     const
-    //         { getVal } = columns[Math.abs(sortCol) - 1];
-    //     viewData.sort((a, b) => Math.sign(sortCol) * getVal(a).localeCompare(getVal(b)));
-    // }
 
     if (sortCol) {
         const
             { getVal } = columns[Math.abs(sortCol) - 1];
         viewData.sort((a, b) => {
-            // console.log(typeof getVal(a) === 'string');
-            // console.log(getVal(a) === 'number');
-            // console.log(getVal(a));
             switch (true) {
                 case (typeof getVal(a) === 'string' && typeof getVal(b) === 'string'):
                     return Math.sign(sortCol) * getVal(a).localeCompare(getVal(b));
@@ -62,12 +50,6 @@ export default function TableOfUsers() {
             .map(col => col.getVal(obj)?.toString().toLowerCase())
             .some(str => str?.includes(filterValue.toLowerCase())));
     }
-
-    // if (filterValue) {
-    //     viewData = viewData.filter(obj => arreyOfKeys
-    //         .map(key => getByCompositeKey(obj, key).toString().toLowerCase())
-    //         .some(str => str.includes(filterValue.trim().toLowerCase())));
-    // }
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (users) return (

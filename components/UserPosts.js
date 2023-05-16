@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import fetchData from '../includes/fetchData'
+import { useState, useEffect } from 'react';
+import fetchData from '../includes/fetchData';
 
 export default function UserPosts({ userId }) {
     console.log('UserPosts. userId- ', userId);

@@ -1,8 +1,5 @@
-import { useState } from 'react'
-import CreateTr from '../components/CreateTr'
+import { useState } from 'react';
 import CreateEditableTr from '../components/CreateEditableTr';
-
-// import getByCompositeKey from '../includes/getByCompositeKey'
 
 export default function Table({
     users, viewData, changeUsers, columns, sortCol, setSortCol, setUserId, setShowUserPosts
@@ -12,6 +9,14 @@ export default function Table({
     function handleEditUser(evt, user) {
         evt.preventDefault();
         setEditContactId(user.id);
+    }
+
+    function handleDelUserbyId(id) {
+        changeUsers((old) => {
+            const index = old.findIndex((item) => id === item.id);
+            old.splice(index, 1);
+            return [...old];
+        });
     }
 
     function handleEditFormSubmit(obj) {
@@ -26,22 +31,8 @@ export default function Table({
         setEditContactId(null);
     };
 
-    // function sortOnClick(evt, array) {
-    //     const
-    //         theadCellText = evt.target.closest('th')?.innerText;
-
-    //     if (!theadCellText) return;
-
-    //     return changeUsers([...array.sort(
-    //         typeof getByCompositeKey(array[0], theadCellText) === 'string'
-    //             ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
-    //             : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
-    //     )]);
-    // }
-
     return (
         <table className='sorted-table'>
-            {/* <thead onClick={evt => sortOnClick(evt, viewData)}> */}
             <thead>
                 <tr onClick={evt => {
                     const index = evt.target.closest('th')?.cellIndex;
@@ -58,19 +49,11 @@ export default function Table({
                     }
                 }
                 }>
-                    {/* <th>id</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>address.city</th>
-                    <th>phone</th>
-                    <th>website</th>
-                    <th>company.name</th>
-                    <th>Action</th> */}
                     {columns?.map((el, i) =>
                         <th key={el.name} className={
                             el.name != 'Action'
-                            ? (Math.abs(sortCol) - 1 === i ? 'sort ' : '') + (-sortCol - 1 === i ? ' desc' : '')
-                            : null
+                                ? (Math.abs(sortCol) - 1 === i ? 'sort ' : '') + (-sortCol - 1 === i ? ' desc' : '')
+                                : null
                         }>{el.name}
                         </th>)
                     }
@@ -89,15 +72,24 @@ export default function Table({
                             key={user.id}
                             users={viewData}
                             tr={user}
+
                             handleEditFormSubmit={handleEditFormSubmit}
                             handleCancelClick={handleCancelClick}
                         />
-                        : <CreateTr
-                            key={user.id}
-                            tr={user}
-                            changeUsers={changeUsers}
-                            handleEditUser={handleEditUser}
-                        />
+                        : <tr data-id={user.id}>
+                            {columns.map(col => <td key={col.name} title={"double click to show details"}>
+                                {col.wrap
+                                    ? <col.wrap value={col.getVal(user)} />
+                                    : col.name === 'Action'
+                                        ? <>
+                                            <button onClick={evt => handleEditUser(evt, user)}>Edit</button>
+                                            <button onClick={() => handleDelUserbyId(user.id)}>Delete</button>
+                                        </>
+                                        : col.getVal(user)
+                                }
+                            </td>
+                            )}
+                        </tr>
                 })}
             </tbody>
         </table>
