@@ -2,9 +2,11 @@ import { useState } from 'react'
 import CreateTr from '../components/CreateTr'
 import CreateEditableTr from '../components/CreateEditableTr';
 
-import getByCompositeKey from '../includes/getByCompositeKey'
+// import getByCompositeKey from '../includes/getByCompositeKey'
 
-export default function Table({ users, viewData, changeUsers, setUserId, setShowUserPosts }) {
+export default function Table({
+    users, viewData, changeUsers, columns, sortCol, setSortCol, setUserId, setShowUserPosts
+}) {
     const [editContactId, setEditContactId] = useState(null);
 
     function handleEditUser(evt, user) {
@@ -24,31 +26,54 @@ export default function Table({ users, viewData, changeUsers, setUserId, setShow
         setEditContactId(null);
     };
 
-    function sortOnClick(evt, array) {
-        const
-            theadCellText = evt.target.closest('th')?.innerText;
+    // function sortOnClick(evt, array) {
+    //     const
+    //         theadCellText = evt.target.closest('th')?.innerText;
 
-        if (!theadCellText) return;
+    //     if (!theadCellText) return;
 
-        return changeUsers([...array.sort(
-            typeof getByCompositeKey(array[0], theadCellText) === 'string'
-                ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
-                : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
-        )]);
-    }
+    //     return changeUsers([...array.sort(
+    //         typeof getByCompositeKey(array[0], theadCellText) === 'string'
+    //             ? (a, b) => getByCompositeKey(a, theadCellText).localeCompare(getByCompositeKey(b, theadCellText))
+    //             : (a, b) => getByCompositeKey(a, theadCellText) - getByCompositeKey(b, theadCellText)
+    //     )]);
+    // }
 
     return (
-        <table className='sort'>
-            <thead onClick={evt => sortOnClick(evt, viewData)}>
-                <tr>
-                    <th>id</th>
+        <table className='sorted-table'>
+            {/* <thead onClick={evt => sortOnClick(evt, viewData)}> */}
+            <thead>
+                <tr onClick={evt => {
+                    const index = evt.target.closest('th')?.cellIndex;
+                    switch (true) {
+                        case Math.abs(sortCol) - 1 !== index:
+                            setSortCol(index + 1);
+                            return;
+                        case sortCol - 1 === index:
+                            setSortCol(-sortCol);
+                            return;
+                        case -sortCol - 1 === index:
+                            setSortCol(0);
+                            return;
+                    }
+                }
+                }>
+                    {/* <th>id</th>
                     <th>name</th>
                     <th>email</th>
                     <th>address.city</th>
                     <th>phone</th>
                     <th>website</th>
                     <th>company.name</th>
-                    <th>Action</th>
+                    <th>Action</th> */}
+                    {columns?.map((el, i) =>
+                        <th key={el.name} className={
+                            el.name != 'Action'
+                            ? (Math.abs(sortCol) - 1 === i ? 'sort ' : '') + (-sortCol - 1 === i ? ' desc' : '')
+                            : null
+                        }>{el.name}
+                        </th>)
+                    }
                 </tr>
             </thead>
             <tbody onDoubleClick={evt => {
