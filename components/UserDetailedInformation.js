@@ -44,7 +44,10 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
                     <div><button onClick={() => setShowUserPosts(true)}>Show posts</button></div>
                 </div>
                 <div className='photo-of-user'>{
-                    [<img className='user-photo' key={userId} src={"https://fakeface.rest/face/view/" + userId} />
+                    //fakeface.rest к сожалению, последнее время не всегда работает. Добавил альтернативный
+                    // [<img className='user-photo' key={userId} src={"https://fakeface.rest/face/view/" + userId} alt={'photo'}/>  
+                    // ]}
+                    [<img className='user-photo' key={userId} src={`https://randomuser.me/api/portraits/men/${userId}.jpg`} alt={'photo'} />
                     ]}
                 </div>
             </div>

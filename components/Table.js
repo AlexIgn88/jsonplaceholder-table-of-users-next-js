@@ -35,7 +35,10 @@ export default function Table({
         <table className='sorted-table'>
             <thead>
                 <tr onClick={evt => {
+                    if (!evt.target.closest('th')) return;
                     const index = evt.target.closest('th')?.cellIndex;
+                    if (columns[index].name === 'Photo' || columns[index].name === 'Action') return;
+
                     switch (true) {
                         case Math.abs(sortCol) - 1 !== index:
                             setSortCol(index + 1);
@@ -47,13 +50,10 @@ export default function Table({
                             setSortCol(0);
                             return;
                     }
-                }
-                }>
+                }}>
                     {columns?.map((el, i) =>
                         <th key={el.name} className={
-                            el.name != 'Action'
-                                ? (Math.abs(sortCol) - 1 === i ? 'sort ' : '') + (-sortCol - 1 === i ? ' desc' : '')
-                                : null
+                            (Math.abs(sortCol) - 1 === i ? 'sort ' : '') + (-sortCol - 1 === i ? ' desc' : '')
                         }>{el.name}
                         </th>)
                     }
@@ -72,18 +72,17 @@ export default function Table({
                             key={user.id}
                             users={viewData}
                             tr={user}
-
                             handleEditFormSubmit={handleEditFormSubmit}
                             handleCancelClick={handleCancelClick}
                         />
-                        : <tr data-id={user.id}>
+                        : <tr key={user.id} data-id={user.id}>
                             {columns.map(col => <td key={col.name} title={"double click to show details"}>
                                 {col.wrap
                                     ? <col.wrap value={col.getVal(user)} />
                                     : col.name === 'Action'
                                         ? <>
-                                            <button onClick={evt => handleEditUser(evt, user)}>Edit</button>
-                                            <button onClick={() => handleDelUserbyId(user.id)}>Delete</button>
+                                            <button onClick={evt => handleEditUser(evt, user)}>&#9998; Edit</button>
+                                            <button onClick={() => handleDelUserbyId(user.id)}>&#128465; Delete</button>
                                         </>
                                         : col.getVal(user)
                                 }

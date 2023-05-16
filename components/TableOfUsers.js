@@ -3,7 +3,7 @@ import fetchData from '../includes/fetchData';
 import CreateEditableTr from '../components/CreateEditableTr';
 import Table from '../components/Table';
 import UserDetailedInformation from '../components/UserDetailedInformation';
-import { Email, Phone, Site } from '../components/cell-wrappers';
+import { Img, Email, Phone, Site } from '../components/cell-wrappers';
 
 export default function TableOfUsers() {
     const
@@ -16,6 +16,7 @@ export default function TableOfUsers() {
         [filterValue, setFilter] = useState(''),
         columns = [
             { name: 'Id', getVal: obj => obj.id },
+            { name: 'Photo', getVal: obj => obj.id, wrap: Img },
             { name: 'Name', getVal: obj => obj.name },
             { name: 'Email', getVal: obj => obj.email, wrap: Email },
             { name: 'Address city', getVal: obj => obj.address?.city },
@@ -54,7 +55,21 @@ export default function TableOfUsers() {
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (users) return (
         <div className='table-of-users'>
+            <div className='filter'>
+                <span>Search:</span><input type="search" value={filterValue} placeholder='Enter a value to search' onInput={evt => setFilter(evt.target.value)}></input>
+            </div>
+            <Table
+                users={users}
+                viewData={viewData}
+                changeUsers={setUsers}
+                columns={columns}
+                sortCol={sortCol}
+                setSortCol={setSortCol}
+                setUserId={userId => setUserId(userId)}
+                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
+            />
             <div className="inputs">
+                <h3>Add new user:</h3>
                 <table>
                     <tbody>
                         <CreateEditableTr
@@ -67,19 +82,6 @@ export default function TableOfUsers() {
                     </tbody>
                 </table>
             </div>
-            <div className='filter'>
-                <span>filter:</span><input type="search" value={filterValue} onInput={evt => setFilter(evt.target.value)}></input>
-            </div>
-            <Table
-                users={users}
-                viewData={viewData}
-                changeUsers={setUsers}
-                columns={columns}
-                sortCol={sortCol}
-                setSortCol={setSortCol}
-                setUserId={userId => setUserId(userId)}
-                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
-            />
             {userId && <UserDetailedInformation
                 userId={userId}
                 showUserPosts={showUserPosts}

@@ -19,18 +19,18 @@ export default function CreateEditableTr({ users, tr, handleEditFormSubmit, hand
         return maxId + 1;
     }
 
-    return <tr>
-        <td>№ {id}</td>
+    return <tr className='editable'>
+        <td>{id}</td>
+        <td><img className="icon" src={`/computer-icons-user-clip-art-create.jpg`} alt={'photo'} /></td>
         <td><input type='text' placeholder='Enter a name' name='name' value={name} onChange={evt => setName(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an email' name='email' value={email} onChange={evt => setEmail(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an address' name='addressCity' value={addressCity} onChange={evt => setAddressCity(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an phone' name='phone' value={phone} onChange={evt => setPhone(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an website' name='website' value={website} onChange={evt => setWebsite(evt.target.value)}></input></td>
         <td><input type='text' placeholder='Enter an company-name' name='company.name' value={companyName} onChange={evt => setCompanyName(evt.target.value)} ></input></td>
-
         <td>
-            <button type='submit' onClick={_ => handleEditFormSubmit({ id, name, email, address: { city: addressCity }, website, phone, company: { name: companyName } })}>Save</button>
-            {handleCancelClick && <button type='button' onClick={handleCancelClick}>Cancel</button>}
+            <button type='submit' onClick={_ => handleEditFormSubmit({ id, name, email, address: { city: addressCity }, website, phone, company: { name: companyName } })}>&#128190; Save</button>
+            {handleCancelClick && <button type='button' onClick={handleCancelClick}>&#128711; Cancel</button>}
         </td>
     </tr>
 }

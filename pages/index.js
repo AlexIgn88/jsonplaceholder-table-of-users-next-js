@@ -5,10 +5,10 @@ export default function App() {
     return (
         <>
             <Head>
-                <title>Таблица персонажей JSONPlaceholder</title>
+                <title>The table of JSONPlaceholder`s users</title>
             </Head>
             <div className='table-name'>
-                <h1>Таблица персонажей JSONPlaceholder</h1>
+                <h1>The table of JSONPlaceholder`s users</h1>
                 <TableOfUsers />
             </div>
         </>

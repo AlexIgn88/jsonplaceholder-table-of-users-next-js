@@ -11,6 +11,21 @@
     display: flex;
 }
 
+h1,
+h3 {
+    color: rgb(70, 69, 69);
+}
+
+.icon {
+    height: 48px;
+    width: 48px;
+}
+
+.table-of-users button {
+    height: 30px;
+    width: 80px;
+}
+
 .table-name {
     text-align: center;
     font-family: sans-serif;
@@ -29,6 +44,7 @@
 }
 
 .inputs {
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
@@ -63,9 +79,14 @@ table.sorted-table {
     background-color: #F0F0F0;
 }
 
-table.sorted-table tbody tr:hover {
+/* table.sorted-table tbody tr:hover {
     background-color: rgb(4, 158, 50);
     color: white;
+} */
+
+table.sorted-table tbody tr:hover {
+    background-color: rgba(94, 255, 0, 0.808);
+    color: blue;
 }
 
 .sorted-table th,
@@ -80,6 +101,11 @@ table.sorted-table tbody tr:hover {
 
 .sort.desc::after {
     content: '▼';
+}
+
+.table-of-users table tbody .editable {
+    background-color: rgb(0, 255, 76);
+    color: white;
 }
 
 .user-detailed {
