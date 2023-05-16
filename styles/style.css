@@ -79,11 +79,6 @@ table.sorted-table {
     background-color: #F0F0F0;
 }
 
-/* table.sorted-table tbody tr:hover {
-    background-color: rgb(4, 158, 50);
-    color: white;
-} */
-
 table.sorted-table tbody tr:hover {
     background-color: rgba(94, 255, 0, 0.808);
     color: blue;
