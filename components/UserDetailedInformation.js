@@ -10,13 +10,13 @@ export default function UserDetailedInformation({ userId, showUserPosts, setShow
         [error, setError] = useState(null),
         api = "https://jsonplaceholder.typicode.com/users/" + userId;
 
-    console.log('UserDetailedInformation. userId- ', userId, 'showUserPosts- ', showUserPosts);
+    // console.log('UserDetailedInformation. userId- ', userId, 'showUserPosts- ', showUserPosts);
 
     useEffect(() => {
         fetchData(api, setUserDetailed, setError);
     }, [userId]);
 
-    console.log('RENDER UserDetailedInformation');
+    // console.log('RENDER UserDetailedInformation');
 
     if (error) return <div className="error">Oшибка {error.message}</div>;
     if (userDetailed) return (

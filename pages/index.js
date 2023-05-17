@@ -1,4 +1,4 @@
-import TableOfUsers from '../components/TableOfUsers'
+import TableOfUsers from '../components/TableOfUsers';
 import Head from 'next/head';
 
 export default function App() {

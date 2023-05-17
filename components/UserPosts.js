@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import fetchData from '../includes/fetchData';
 
 export default function UserPosts({ userId }) {
-    console.log('UserPosts. userId- ', userId);
+    // console.log('UserPosts. userId- ', userId);
 
     const
         [userPosts, setUserPosts] = useState(null),
         [error, setError] = useState(null),
         api = "https://jsonplaceholder.typicode.com/users/" + userId + "/posts";
 
-    console.log('RENDER UserPosts'); 
+    // console.log('RENDER UserPosts'); 
 
     useEffect(() => {
         fetchData(api, setUserPosts, setError);
