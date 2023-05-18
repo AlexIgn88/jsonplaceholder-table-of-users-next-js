@@ -65,8 +65,8 @@ export default function TableOfUsers() {
                 columns={columns}
                 sortCol={sortCol}
                 setSortCol={setSortCol}
-                setUserId={userId => setUserId(userId)}
-                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
+                setUserId={setUserId}
+                setShowUserPosts={setShowUserPosts}
             />
             <div className="inputs">
                 <h3>Add new user:</h3>
@@ -85,7 +85,7 @@ export default function TableOfUsers() {
             {userId && <UserDetailedInformation
                 userId={userId}
                 showUserPosts={showUserPosts}
-                setShowUserPosts={showUserPosts => setShowUserPosts(showUserPosts)}
+                setShowUserPosts={setShowUserPosts}
             />}
         </div>
     );
